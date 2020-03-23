@@ -5,18 +5,37 @@ import { PixelRatio } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 import NavigationService from "./NavigationService";
 
 import HomeScreen from "../Screens/Home/HomeScreen";
+import MainScreen from "../Screens/Main/MainScreen";
 import IcomoonIcon from "../components/Typography/IcomoonIcon";
 import SezinDrawer from "./CustomDrawer";
 import { colors } from "../assets/styles/colors";
 
 const customAppContainer = props => {
-  const HomeStack = createStackNavigator(
+  const tabStack = createBottomTabNavigator({
+    Main: {
+      screen: MainScreen,
+      navigationOptions: {
+        title: "Ana Sayfa",
+        tabBarIcon: <IcomoonIcon name="home" size={30} color={colors.dark} />,
+        tabBarOptions: {
+          activeTintColor: colors.dark,
+          inactiveTintColor: colors.dark
+        }
+      }
+    }
+  });
+
+  const HomeStack = createSwitchNavigator(
     {
       Home: {
         screen: HomeScreen
+      },
+      MainScreen: {
+        screen: tabStack
       }
     },
     {

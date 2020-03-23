@@ -16,7 +16,7 @@ import IcomoonIcon from "../../components/Typography/IcomoonIcon";
 // import { Input } from "react-native-elements";
 
 // create a component
-const HomeScreen = () => {
+const HomeScreen = props => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -70,6 +70,7 @@ const HomeScreen = () => {
               <Input />
             </Item>
             <TouchableOpacity
+              onPress={props.navigation.navigate.bind(this, "MainScreen")}
               style={{
                 backgroundColor: "#81B0F0",
                 width: "90%",
