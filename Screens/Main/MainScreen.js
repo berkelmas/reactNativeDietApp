@@ -51,7 +51,9 @@ const MainScreen = props => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Exercise")}
+          >
             <View style={{ ...styles.formCard, marginTop: 20 }}>
               <Image
                 source={require("../../assets/images/exercise-recommendation.png")}

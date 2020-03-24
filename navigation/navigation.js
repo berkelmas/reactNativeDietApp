@@ -13,6 +13,7 @@ import MainScreen from "../Screens/Main/MainScreen";
 import IcomoonIcon from "../components/Typography/IcomoonIcon";
 import SezinDrawer from "./CustomDrawer";
 import { colors } from "../assets/styles/colors";
+import ExerciseScreen from "../Screens/Exercise/ExerciseScreen";
 
 const customAppContainer = props => {
   const tabStack = createBottomTabNavigator({
@@ -22,7 +23,20 @@ const customAppContainer = props => {
         title: "Ana Sayfa",
         tabBarIcon: <IcomoonIcon name="home" size={30} color={colors.dark} />,
         tabBarOptions: {
-          activeTintColor: colors.dark,
+          activeTintColor: colors.green,
+          inactiveTintColor: colors.dark
+        }
+      }
+    },
+    Exercise: {
+      screen: ExerciseScreen,
+      navigationOptions: {
+        title: "Egzersiz",
+        tabBarIcon: (
+          <IcomoonIcon name="dumbbell" size={30} color={colors.dark} />
+        ),
+        tabBarOptions: {
+          activeTintColor: colors.green,
           inactiveTintColor: colors.dark
         }
       }
