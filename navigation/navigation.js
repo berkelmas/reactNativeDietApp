@@ -21,7 +21,13 @@ const customAppContainer = props => {
       screen: MainScreen,
       navigationOptions: {
         title: "Ana Sayfa",
-        tabBarIcon: <IcomoonIcon name="home" size={30} color={colors.dark} />,
+        tabBarIcon: ({ focused, color, size }) => (
+          <IcomoonIcon
+            name="home"
+            size={30}
+            color={focused ? colors.green : colors.dark}
+          />
+        ),
         tabBarOptions: {
           activeTintColor: colors.green,
           inactiveTintColor: colors.dark
@@ -32,8 +38,12 @@ const customAppContainer = props => {
       screen: ExerciseScreen,
       navigationOptions: {
         title: "Egzersiz",
-        tabBarIcon: (
-          <IcomoonIcon name="dumbbell" size={30} color={colors.dark} />
+        tabBarIcon: ({ focused, color, size }) => (
+          <IcomoonIcon
+            name="dumbbell"
+            size={30}
+            color={focused ? colors.green : colors.dark}
+          />
         ),
         tabBarOptions: {
           activeTintColor: colors.green,

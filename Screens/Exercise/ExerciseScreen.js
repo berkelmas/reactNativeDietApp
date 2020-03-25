@@ -1,5 +1,5 @@
 //import liraries
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -15,11 +15,24 @@ import {
 import { Item, Input, Label } from "native-base";
 import IcomoonIcon from "../../components/Typography/IcomoonIcon";
 import { colors } from "../../assets/styles/colors";
+import { getExercises } from "../../services/exercise-service";
+import { SkypeIndicator } from "react-native-indicators";
 
 // import { Input } from "react-native-elements";
 
 // create a component
 const ExerciseScreen = props => {
+  const [exercisesLoading, setExercisesLoading] = useState(false);
+  const [exercisesData, setExercisesData] = useState(null);
+
+  useEffect(() => {
+    setExercisesLoading(true);
+    getExercises().then(res => {
+      setExercisesLoading(false);
+      setExercisesData(res.data);
+    });
+  }, []);
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <ScrollView>
@@ -230,55 +243,57 @@ const ExerciseScreen = props => {
         </Text>
 
         <View style={{ alignItems: "center" }}>
-          <View style={styles.itemCard}>
-            <View style={{ flexDirection: "row" }}>
-              <Image
-                source={require("../../assets/images/fitness-item.png")}
-                style={{ height: 70, resizeMode: "contain" }}
-              />
-              <View>
-                <Text
-                  style={{ fontFamily: "Poppins-Regular", color: colors.dark }}
-                >
-                  Fitness Rutini
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: "Poppins-Light",
-                    color: "#767676",
-                    fontSize: 12,
-                    marginLeft: 10
-                  }}
-                >
-                  - Bench Press
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: "Poppins-Light",
-                    color: "#767676",
-                    fontSize: 12,
-                    marginLeft: 10
-                  }}
-                >
-                  - Shoulder Press
-                </Text>
+          {exercisesLoading && (
+            <SkypeIndicator style={{ marginTop: 10 }} color={colors.green} />
+          )}
+          {exercisesData &&
+            exercisesData.map((res, index) => (
+              <View key={index} style={styles.itemCard}>
+                <View style={{ flexDirection: "row" }}>
+                  <Image
+                    source={require("../../assets/images/fitness-item.png")}
+                    style={{ height: 70, resizeMode: "contain" }}
+                  />
+                  <View>
+                    <Text
+                      style={{
+                        fontFamily: "Poppins-Regular",
+                        color: colors.dark
+                      }}
+                    >
+                      Fitness Rutini
+                    </Text>
+                    {res.exercisePlanLines.map((item, index) => (
+                      <Text
+                        key={index}
+                        style={{
+                          fontFamily: "Poppins-Light",
+                          color: "#767676",
+                          fontSize: 12,
+                          marginLeft: 10
+                        }}
+                      >
+                        - {item.exercise.name}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+                <TouchableOpacity>
+                  <View
+                    style={{
+                      height: 50,
+                      width: 50,
+                      backgroundColor: colors.green,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 100
+                    }}
+                  >
+                    <IcomoonIcon name="undo" size={20} color="#ffffff" />
+                  </View>
+                </TouchableOpacity>
               </View>
-            </View>
-            <TouchableOpacity>
-              <View
-                style={{
-                  height: 50,
-                  width: 50,
-                  backgroundColor: colors.green,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: 100
-                }}
-              >
-                <IcomoonIcon name="undo" size={20} color="#ffffff" />
-              </View>
-            </TouchableOpacity>
-          </View>
+            ))}
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>
