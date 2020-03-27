@@ -17,6 +17,7 @@ import IcomoonIcon from "../../components/Typography/IcomoonIcon";
 import { colors } from "../../assets/styles/colors";
 import { getExercises } from "../../services/exercise-service";
 import { SkypeIndicator } from "react-native-indicators";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 // import { Input } from "react-native-elements";
 
@@ -72,12 +73,24 @@ const ExerciseScreen = props => {
             <Text
               style={{
                 fontFamily: "Poppins-Light",
-                fontSize: 15,
+                fontSize: 13,
                 color: "#767676"
               }}
             >
               Buradan günlük egzersizlerinizi görüntüleyebilirsiniz.
             </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("ExerciseAgenda")}
+            >
+              <View style={styles.dateContainer}>
+                <Text
+                  style={{ fontFamily: "Poppins-Light", color: colors.gray }}
+                >
+                  22/10/2020
+                </Text>
+                <IcomoonIcon name="calendar" size={15} color={colors.gray} />
+              </View>
+            </TouchableOpacity>
           </View>
         </ImageBackground>
 
@@ -87,7 +100,7 @@ const ExerciseScreen = props => {
             alignItems: "center",
             justifyContent: "space-evenly",
             flexWrap: "wrap",
-            marginTop: -40
+            marginTop: -30
           }}
         >
           <View style={styles.formCard}>
@@ -261,7 +274,7 @@ const ExerciseScreen = props => {
                         color: colors.dark
                       }}
                     >
-                      Fitness Rutini
+                      {res.title}
                     </Text>
                     {res.exercisePlanLines.map((item, index) => (
                       <Text
@@ -342,6 +355,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+
+    elevation: 5
+  },
+  dateContainer: {
+    marginTop: 15,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: "white",
+    width: Dimensions.get("window").width / 3,
+    flexDirection: "row",
+    justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

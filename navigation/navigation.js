@@ -14,8 +14,29 @@ import IcomoonIcon from "../components/Typography/IcomoonIcon";
 import SezinDrawer from "./CustomDrawer";
 import { colors } from "../assets/styles/colors";
 import ExerciseScreen from "../Screens/Exercise/ExerciseScreen";
+import ExerciseAgendaScreen from "../Screens/ExerciseAgenda/ExerciseAgendaScreen";
 
 const customAppContainer = props => {
+  const exerciseStack = createStackNavigator(
+    {
+      MainExercise: {
+        screen: ExerciseScreen,
+        navigationOptions: {
+          title: "Egzersiz"
+        }
+      },
+      ExerciseAgenda: {
+        screen: ExerciseAgendaScreen,
+        navigationOptions: {
+          title: "Egzersiz Ajanda"
+        }
+      }
+    },
+    {
+      initialRouteName: "MainExercise"
+    }
+  );
+
   const tabStack = createBottomTabNavigator({
     Main: {
       screen: MainScreen,
@@ -35,7 +56,7 @@ const customAppContainer = props => {
       }
     },
     Exercise: {
-      screen: ExerciseScreen,
+      screen: exerciseStack,
       navigationOptions: {
         title: "Egzersiz",
         tabBarIcon: ({ focused, color, size }) => (
